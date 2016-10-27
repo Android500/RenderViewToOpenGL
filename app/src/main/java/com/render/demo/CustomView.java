@@ -15,7 +15,7 @@ import android.view.View;
 public class CustomView extends View {
 
     private Paint paint;
-    private Handler handler;
+    private Handler handler;//
 
 
     public CustomView(Context context) {
