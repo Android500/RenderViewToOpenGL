@@ -7,44 +7,29 @@ import android.graphics.SurfaceTexture;
 import android.view.Surface;
 import android.view.Surface.OutOfResourcesException;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
-public class GLProgressBar extends ProgressBar {
-
-	private int textureHeight = 200;
-	private int textureWidth = 200;
+public class GLProgressBar extends ProgressBar implements IRendedView{
 
 	private Surface mSurface;
 	
 	private SurfaceTexture mSurfaceTexture;
 
-	public void setSurfaceTexture(SurfaceTexture mSurfaceTexture) {
-		this.mSurfaceTexture = mSurfaceTexture;
+
+	@Override
+	public void configSurface(Surface surface) {
+		this.mSurface = surface;
 	}
 
-	public void setSurface(Surface mSurface) {
-		this.mSurface = mSurface;
-	}
-
-	public int getTextureHeight() {
-		return textureHeight;
-	}
-
-	public void setTextureHeight(int textureHeight) {
-		this.textureHeight = textureHeight;
-	}
-
-	public int getTextureWidth() {
-		return textureWidth;
-	}
-
-	public void setTextureWidth(int textureWidth) {
-		this.textureWidth = textureWidth;
+	@Override
+	public void configSurfaceTexture(SurfaceTexture surfaceTexture) {
+		this.mSurfaceTexture = surfaceTexture;
 	}
 
 	public GLProgressBar(Context context) {
 		super(context);
-		setLayoutParams(new LayoutParams(200, 200));
+		setLayoutParams(new LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, 400));
 	}
 
 	@Override
@@ -72,7 +57,6 @@ public class GLProgressBar extends ProgressBar {
 		}
 		
 		// original view
-		super.onDraw( canvas ); // <- Uncomment this if you want to show the
-		//original view
+		super.onDraw( canvas ); // <- Uncomment this if you want to show the original view
 	}
 }

@@ -17,7 +17,7 @@ import java.util.List;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-class CustomRenderer implements GLSurfaceView.Renderer {
+class ViewRenderer implements GLSurfaceView.Renderer {
 	int glSurfaceTex;
 	private final int GL_TEXTURE_EXTERNAL_OES = 0x8D65;
 	long currentTime;
@@ -35,7 +35,7 @@ class CustomRenderer implements GLSurfaceView.Renderer {
 
 	Context context;
 	
-	private GLProgressBar rendedView;
+	private IRendedView rendedView;
 	
 	private SurfaceTexture surfaceTexture = null;
 
@@ -43,7 +43,7 @@ class CustomRenderer implements GLSurfaceView.Renderer {
 
 	float fps;
 	
-	public CustomRenderer(Context context, GLProgressBar rendedView, Display mDisplay){
+	public ViewRenderer(Context context, IRendedView rendedView, Display mDisplay){
 		this.context = context;
 		this.rendedView = rendedView;
 		TEXTURE_WIDTH = mDisplay.getWidth();
@@ -69,11 +69,6 @@ class CustomRenderer implements GLSurfaceView.Renderer {
 		float[] mtx = new float[16];
 		surfaceTexture.getTransformMatrix(mtx);
 		mDirectDrawer.draw(mtx);
-
-		calculateFps();
-		//getAppMemorySize();
-		//getRunningAppProcessInfo();
-		//Log.v("onDrawFrame", "FPS: " + Math.round(fps) + ", availMem: " + Math.round(_memoryInfo.availMem / 1048576) + "MB");
 	}
 	
 	private void getAppMemorySize(){
@@ -118,31 +113,14 @@ class CustomRenderer implements GLSurfaceView.Renderer {
 			surfaceTexture = new SurfaceTexture(glSurfaceTex);
 			surfaceTexture.setDefaultBufferSize(TEXTURE_WIDTH, TEXTURE_HEIGHT);
 			surface = new Surface(surfaceTexture);
-			rendedView.setSurface(surface);
-			rendedView.setSurfaceTexture(surfaceTexture);
+			rendedView.configSurface(surface);
+			rendedView.configSurfaceTexture(surfaceTexture);
 			//addedWidgetView.setSurfaceTexture(surfaceTexture);
 			mDirectDrawer = new DirectDrawer(glSurfaceTex);
 		}
 	}
 
-	float calculateFps() {
 
-		frameCount++;
-		if (!b) {
-			b = true;
-			previousTime = System.currentTimeMillis();
-		}
-		long intervalTime = System.currentTimeMillis() - previousTime;
-
-		if (intervalTime >= 1000) {
-			b = false;
-			fps = frameCount / (intervalTime / 1000f);
-			frameCount = 0;
-			Log.w("calculateFps", "FPS: " + fps);
-		}
-
-		return fps;
-	}
 
 	int Engine_CreateSurfaceTexture(int width, int height) {
 		/*
