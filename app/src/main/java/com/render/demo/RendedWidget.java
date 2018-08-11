@@ -92,6 +92,9 @@ public class RendedWidget  extends CustomView{
     protected void onDraw(Canvas canvas) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
             rendViewToOpenGL(canvas);
+            // original view
+            super.onDraw( canvas ); // <- Uncomment this if you want to show the
+            //original view
         } else {
             super.onDraw(canvas);
         }
@@ -113,6 +116,7 @@ public class RendedWidget  extends CustomView{
         } catch (Surface.OutOfResourcesException e) {
             e.printStackTrace();
         }
+
     }
 
 

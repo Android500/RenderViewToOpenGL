@@ -3,11 +3,14 @@ package com.render.demo;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+
 import android.graphics.Paint;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+
 
 /**
  * Created by huangxin on 2016/9/23.
@@ -17,6 +20,8 @@ public class CustomView extends View {
     private Paint paint;
     private Handler handler;//
 
+    private int textureHeight = 200;
+    private int textureWidth = 200;
 
     public CustomView(Context context) {
         super(context);
@@ -38,6 +43,7 @@ public class CustomView extends View {
         paint.setColor(Color.RED);
         paint.setStrokeWidth(10);
         handler = new Handler();
+        setLayoutParams(new ViewGroup.LayoutParams(200, 200));
     }
 
     private float endX = 0;
@@ -51,7 +57,7 @@ public class CustomView extends View {
         }
 
         canvas.drawLine(0, getHeight() / 2, endX, getHeight() / 2, paint);
-        endX = endX + 2;
+        endX = endX + 5;
 
         handler.postDelayed(new Runnable() {
             @Override

@@ -35,7 +35,7 @@ class CustomRenderer implements GLSurfaceView.Renderer {
 
 	Context context;
 	
-	private RendedWidget rendedView;
+	private GLProgressBar rendedView;
 	
 	private SurfaceTexture surfaceTexture = null;
 
@@ -43,7 +43,7 @@ class CustomRenderer implements GLSurfaceView.Renderer {
 
 	float fps;
 	
-	public CustomRenderer(Context context, RendedWidget rendedView, Display mDisplay){
+	public CustomRenderer(Context context, GLProgressBar rendedView, Display mDisplay){
 		this.context = context;
 		this.rendedView = rendedView;
 		TEXTURE_WIDTH = mDisplay.getWidth();
